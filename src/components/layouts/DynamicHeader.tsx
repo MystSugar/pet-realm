@@ -59,12 +59,12 @@ export default function DynamicHeader() {
 
   // Check account type and show appropriate header
   if (user.role === AccountType.SELLER) {
-    return <SellerHeader user={user} shop={shop} />;
+    return <SellerHeader user={user} {...(shop && { shop })} />;
   }
 
   if (user.role === AccountType.ADMIN) {
     // TODO: Create AdminHeader component
-    return <SellerHeader user={user} shop={shop} />; // Temporary fallback since no AdminHeader exists yet
+    return <SellerHeader user={user} {...(shop && { shop })} />; // Temporary fallback since no AdminHeader exists yet
   }
 
   // Default to customer header
