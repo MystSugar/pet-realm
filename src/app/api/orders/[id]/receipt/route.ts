@@ -51,7 +51,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     // Generate unique filename
     const ext = file.name.split(".").pop();
-    const filename = `receipt-${params.id}-${randomUUID()}.${ext}`;
+    const filename = `receipt-${id}-${randomUUID()}.${ext}`;
 
     // Convert file to buffer
     const bytes = await file.arrayBuffer();
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     // Update order with receipt R2 key
     const updatedOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         receiptUrl: r2Key, // Store R2 key (e.g., "receipts/receipt-xyz.jpg")
         receiptUploadedAt: new Date(),
