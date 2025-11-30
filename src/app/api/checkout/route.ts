@@ -75,7 +75,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const shop = cartItems[0].product.shop;
+    const firstItem = cartItems[0];
+    if (!firstItem) {
+      return Response.json({ error: "Cart is empty" }, { status: 400 });
+    }
+
+    const shop = firstItem.product.shop;
 
     if (!shop.isActive) {
       return Response.json({ error: "Shop is not active" }, { status: 400 });
