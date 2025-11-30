@@ -46,7 +46,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     }
 
     const updatedItem = await prisma.cartItem.update({
-      where: { id: params.id },
+      where: { id },
       data: { quantity },
       include: {
         product: {
@@ -91,7 +91,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     }
 
     await prisma.cartItem.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return Response.json({ message: "Item removed from cart" });
