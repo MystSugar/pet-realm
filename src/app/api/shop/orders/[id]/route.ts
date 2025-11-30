@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -21,10 +21,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
+    const { id } = await params;
+
     // Fetch the order with all details
     const order = await prisma.order.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
         deletedAt: null,
       },
@@ -89,7 +91,7 @@ const VALID_STATUS_TRANSITIONS: Record<string, string[]> = {
   OUT_FOR_DELIVERY: ["DELIVERED"],
 };
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -105,10 +107,12 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
+    const { id } = await params;
+
     // Verify order exists and belongs to the shop
     const existingOrder = await prisma.order.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
         deletedAt: null,
       },
@@ -132,7 +136,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     }
 
     const updatedOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: { status },
       include: {
         customer: {

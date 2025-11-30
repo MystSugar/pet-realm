@@ -44,7 +44,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 
     // Update payment status to VERIFIED
     const updatedOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: { paymentStatus: PaymentStatus.VERIFIED },
     });
 

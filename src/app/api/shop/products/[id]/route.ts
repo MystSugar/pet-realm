@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -19,9 +19,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
+    const { id } = await params;
+
     const product = await prisma.product.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
         deletedAt: null,
       },
@@ -45,7 +47,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -61,10 +63,12 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
+    const { id } = await params;
+
     // Verify product exists and belongs to the shop
     const existingProduct = await prisma.product.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
         deletedAt: null,
       },
@@ -134,7 +138,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     if (healthCertificate !== undefined) updateData.healthCondition = healthCertificate || null;
 
     const updatedProduct = await prisma.product.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
     });
 
@@ -152,7 +156,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -168,10 +172,12 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
+    const { id } = await params;
+
     // Verify product exists and belongs to the shop
     const existingProduct = await prisma.product.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
         deletedAt: null,
       },
@@ -183,7 +189,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     // Soft delete
     await prisma.product.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         deletedAt: new Date(),
         deletedBy: session.user.id,

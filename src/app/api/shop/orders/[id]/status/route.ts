@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { OrderStatus } from "@prisma/client";
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -29,10 +29,12 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
+    const { id } = await params;
+
     // Verify the order belongs to this shop
     const order = await prisma.order.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
       },
     });
@@ -43,7 +45,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 
     // Update the order status
     const updatedOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: { status },
     });
 
