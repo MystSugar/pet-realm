@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, contact: { id: contact.id } }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: "Invalid form data", details: error.errors }, { status: 400 });
+      return NextResponse.json({ error: "Invalid form data", details: error.issues }, { status: 400 });
     }
     return NextResponse.json({ error: "Failed to submit contact form" }, { status: 500 });
   }
