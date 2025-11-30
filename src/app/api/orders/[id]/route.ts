@@ -64,7 +64,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             receiptUrl: signedUrl, // Replace R2 key with signed URL
           },
         });
-      } catch (error) {
+      } catch {
         // If signed URL generation fails, return order without receipt URL
         return Response.json({
           order: {

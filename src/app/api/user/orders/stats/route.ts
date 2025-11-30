@@ -28,7 +28,7 @@ export async function GET() {
       pending,
       completed,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch order stats" }, { status: 500 });
   }
 }

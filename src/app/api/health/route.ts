@@ -7,7 +7,7 @@ export async function GET() {
       timestamp: new Date().toISOString(),
       message: "Pet Realm API is operational",
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         status: "error",
