@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { PaymentStatus } from "@prisma/client";
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -22,10 +22,12 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
+    const { id } = await params;
+
     // Verify the order belongs to this shop and has a receipt
     const order = await prisma.order.findFirst({
       where: {
-        id: params.id,
+        id,
         shopId: shop.id,
       },
     });
