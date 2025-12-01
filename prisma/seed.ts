@@ -1,4 +1,4 @@
-import { PrismaClient, ProductCategory, AccountType, ShopCategory, OrderStatus, DeliveryType, IDType, PaymentStatus, PetGender } from "@prisma/client";
+import { PrismaClient, ProductCategory, AccountType, ShopCategory, IDType, PetGender } from "@prisma/client";
 import * as bcrypt from "bcryptjs";
 import { randomUUID } from "crypto";
 

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient, ProductCategory, AccountType, ShopCategory, OrderStatus, DeliveryType, IDType, PaymentStatus, PetGender } from "@prisma/client";
+import { PrismaClient, ProductCategory, AccountType, ShopCategory, IDType, PetGender } from "@prisma/client";
 import * as bcrypt from "bcryptjs";
-import { randomUUID } from "crypto";
 
 const prisma = new PrismaClient();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SEED_SECRET = process.env.SEED_SECRET;
 
 export async function POST(request: NextRequest) {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     console.log("Creating users...");
     
     // Customer Account
-    const customer = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name: "Ahmed Hassan",
         email: "customer@petrealm.com",
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     console.log("Creating products...");
 
     // Cat Products
-    const catFood = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Royal Canin Adult Cat Food",
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const catLitter = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Fresh Step Clumping Cat Litter",
@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const catToy = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Interactive Feather Wand Toy",
@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const scratchingPost = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Cat Scratching Post with Platform",
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Live Cats
-    const persianKitten = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Persian Kitten - Female",
@@ -203,7 +203,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const maineCoonMale = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Maine Coon Kitten - Male",
@@ -226,7 +226,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Bird Products
-    const birdCage = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Large Bird Cage with Stand",
@@ -241,7 +241,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const parrot = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "African Grey Parrot",
@@ -264,7 +264,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Fish Products
-    const aquarium = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Glass Aquarium Tank 50L",
@@ -279,7 +279,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const fishFood = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Tropical Fish Flakes - Premium",
@@ -294,7 +294,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const clownfish = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Clownfish Pair (Saltwater)",
@@ -314,7 +314,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Small Pets
-    const hamsterCage = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Hamster Habitat Cage",
@@ -329,7 +329,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const hamster = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Syrian Hamster",
@@ -350,7 +350,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Reptile
-    const reptileTank = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Reptile Terrarium 40L",
@@ -365,7 +365,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const leopardGecko = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Leopard Gecko",
@@ -387,7 +387,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Healthcare Products
-    const vitamins = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Multi-Vitamin Supplements for Cats & Dogs",
@@ -402,7 +402,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const fleaTreatment = await prisma.product.create({
+    await prisma.product.create({
       data: {
         shopId: petStore.id,
         name: "Flea & Tick Treatment Spot-On",
