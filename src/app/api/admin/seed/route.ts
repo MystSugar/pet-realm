@@ -99,13 +99,9 @@ export async function POST(request: NextRequest) {
         accountHolderName: "Mohamed Rasheed",
         accountNumber: "7701234567890",
         businessHours: {
-          saturday: { open: "09:00", close: "23:00", closed: false },
-          sunday: { open: "09:00", close: "23:00", closed: false },
-          monday: { open: "09:00", close: "23:00", closed: false },
-          tuesday: { open: "09:00", close: "23:00", closed: false },
-          wednesday: { open: "09:00", close: "23:00", closed: false },
-          thursday: { open: "09:00", close: "23:00", closed: false },
-          friday: { open: "13:00", close: "21:00", closed: false }
+          days: ["MON", "TUE", "WED", "THU", "SAT", "SUN"],
+          openTime: "09:00",
+          closeTime: "21:00"
         },
         deliveryZones: {
           zones: [
