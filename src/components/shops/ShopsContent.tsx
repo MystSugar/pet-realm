@@ -95,7 +95,7 @@ export default function ShopsContentOptionB() {
       <div className="container mx-auto sm:px-6 lg:px-8 py-8 max-w-6xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Pet Shops</h1>
-          <p className="text-gray-600">Discover local pet shops, groomers, veterinary clinics, and boarding facilities</p>
+          <p className="text-gray-600">Discover local pet shops and supplies across the Maldives</p>
         </div>
 
         {/* Filters - Compact Dropdowns */}

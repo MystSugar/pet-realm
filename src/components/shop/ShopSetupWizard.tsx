@@ -23,9 +23,10 @@ const STEPS = [
 
 const SHOP_CATEGORIES = [
   { value: "PET_STORE", label: "Pet Store", description: "Sell pet products and supplies" },
-  { value: "GROOMING", label: "Grooming Service", description: "Pet grooming and spa services" },
-  { value: "VETERINARY_CLINIC", label: "Veterinary Clinic", description: "Pet healthcare services" },
-  { value: "BOARDING", label: "Pet Boarding", description: "Pet sitting and boarding services" },
+  // Service categories coming soon!
+  // { value: "GROOMING", label: "Grooming Service", description: "Pet grooming and spa services" },
+  // { value: "VETERINARY_CLINIC", label: "Veterinary Clinic", description: "Pet healthcare services" },
+  // { value: "BOARDING", label: "Pet Boarding", description: "Pet sitting and boarding services" },
 ];
 
 const ISLANDS = ["Male'", "Hulhumale Phase 1", "Hulhumale Phase 2", "Villimale"];

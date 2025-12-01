@@ -16,9 +16,10 @@ import { ShopCategory } from "@prisma/client";
 
 const SHOP_CATEGORIES = [
   { value: "PET_STORE", label: "Pet Store" },
-  { value: "GROOMING", label: "Grooming Service" },
-  { value: "VETERINARY_CLINIC", label: "Veterinary Clinic" },
-  { value: "BOARDING", label: "Pet Boarding" },
+  // Service categories coming soon!
+  // { value: "GROOMING", label: "Grooming Service" },
+  // { value: "VETERINARY_CLINIC", label: "Veterinary Clinic" },
+  // { value: "BOARDING", label: "Pet Boarding" },
 ];
 
 const ISLANDS = ["Male'", "Hulhumale Phase 1", "Hulhumale Phase 2", "Villimale"];
