@@ -157,7 +157,7 @@ export default function SignInForm() {
                   disabled={isResending}
                   variant="outline"
                   size="sm"
-                  className="mt-2 w-full">
+                  className="mt-2 w-full hover:bg-accent-500 hover:text-white hover:border-accent-500 transition-colors">
                   {isResending ? "Sending..." : "Resend Verification Email"}
                 </Button>
               )}
