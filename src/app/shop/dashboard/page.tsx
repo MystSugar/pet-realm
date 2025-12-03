@@ -9,7 +9,7 @@ export const metadata = {
 
 function DashboardSkeleton() {
   return (
-    <div className="bg-cream-50">
+    <div>
       <div className="container mx-auto px-4 py-8">
         <Skeleton className="h-10 w-64 mb-8" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
