@@ -5,10 +5,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  eslint: {
-    // Allow builds to continue with warnings but not errors
-    ignoreDuringBuilds: false,
-  },
   images: {
     remotePatterns: [
       {
