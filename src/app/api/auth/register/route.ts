@@ -70,13 +70,13 @@ export async function POST(request: Request) {
       html: generateEmailVerificationTemplate(name, verificationUrl),
     });
 
-    // Log for development but don't expose email sending failures to user
-    if (process.env.NODE_ENV === "development") {
-      // eslint-disable-next-line no-console
-      console.log(`Verification email sent to ${email}: ${emailResult.success ? "Success" : emailResult.error}`);
-      // eslint-disable-next-line no-console
-      console.log(`Verification link: ${verificationUrl}`);
-    }
+    // Log email sending result (always log for debugging)
+    // eslint-disable-next-line no-console
+    console.log(`[Registration] Email verification attempt for ${email}:`, {
+      success: emailResult.success,
+      error: emailResult.error || 'none',
+      verificationUrl: process.env.NODE_ENV === "development" ? verificationUrl : 'hidden',
+    });
 
     // Remove password from response
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

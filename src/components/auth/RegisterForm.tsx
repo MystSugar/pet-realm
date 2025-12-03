@@ -26,6 +26,7 @@ export default function RegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const router = useRouter();
 
   const handleInputChange = (field: string, value: string) => {
@@ -36,6 +37,7 @@ export default function RegisterForm() {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setSuccess("");
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
@@ -92,9 +94,13 @@ export default function RegisterForm() {
         return;
       }
 
-      // Check if email verification is required
+      // Show success message before redirect
       if (data.requiresEmailVerification) {
-        router.push("/auth/signin?message=Registration successful! Please check your email to verify your account before signing in.");
+        setSuccess(`Account created! We've sent a verification link to ${formData.email}. Please check your email (and spam folder) to verify your account.`);
+        // Redirect after showing message
+        setTimeout(() => {
+          router.push("/auth/signin?message=Please check your email to verify your account before signing in.");
+        }, 4000);
       } else {
         router.push("/auth/signin?message=Registration successful! Please sign in.");
       }
@@ -268,8 +274,14 @@ export default function RegisterForm() {
           </div>
 
           {error && <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-md p-3">{error}</div>}
+          {success && (
+            <div className="text-green-700 text-sm bg-green-50 border border-green-200 rounded-md p-3">
+              <p className="font-medium mb-1">✓ Registration Successful!</p>
+              <p>{success}</p>
+            </div>
+          )}
 
-          <Button type="submit" disabled={isLoading} className="w-full">
+          <Button type="submit" disabled={isLoading || !!success} className="w-full">
             {isLoading ? "Creating account..." : "Create account"}
           </Button>
         </form>
