@@ -192,7 +192,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading order details..." />
       </div>
     );
@@ -200,7 +200,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
 
   if (error || !order) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
         <Card>
           <CardContent className="pt-6">
             <div className="text-center space-y-4">
@@ -241,25 +241,25 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
         )}
 
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-          <Link href="/" className="hover:text-foreground">
+        <nav className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground mb-6">
+          <Link href="/" className="hover:text-foreground flex-shrink-0">
             <Home className="h-4 w-4" />
           </Link>
-          <span>/</span>
-          <Link href="/orders" className="hover:text-foreground">
+          <span className="flex-shrink-0">/</span>
+          <Link href="/orders" className="hover:text-foreground flex-shrink-0">
             Orders
           </Link>
-          <span>/</span>
-          <span className="text-foreground">{order.orderNumber}</span>
+          <span className="flex-shrink-0">/</span>
+          <span className="text-foreground break-all">{order.orderNumber}</span>
         </nav>
 
         <div className="space-y-6">
           {/* Order Header */}
           <Card>
             <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-2xl">Order #{order.orderNumber}</CardTitle>
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <CardTitle className="text-xl sm:text-2xl break-all">Order #{order.orderNumber}</CardTitle>
                   <p className="text-sm text-muted-foreground mt-1">
                     Placed on{" "}
                     {new Date(order.createdAt).toLocaleDateString("en-US", {
@@ -271,7 +271,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
                     })}
                   </p>
                 </div>
-                <Badge className={`${statusConfig.color} text-white`}>
+                <Badge className={`${statusConfig.color} text-white flex-shrink-0 self-start`}>
                   <StatusIcon className="h-3 w-3 mr-1" />
                   {statusConfig.label}
                 </Badge>
@@ -389,14 +389,15 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
                     onClick={() => setIsReceiptModalOpen(true)}>
                     <Image src={order.receiptUrl} alt="Payment receipt" fill className="object-contain" />
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     {order.receiptUploadedAt && (
                       <p className="text-xs text-muted-foreground">Uploaded on {new Date(order.receiptUploadedAt).toLocaleString()}</p>
                     )}
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => setIsReceiptModalOpen(true)}>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setIsReceiptModalOpen(true)} className="w-full sm:w-auto">
                         <Eye className="h-4 w-4 mr-1" />
-                        View Full Size
+                        <span className="hidden sm:inline">View Full Size</span>
+                        <span className="sm:hidden">View</span>
                       </Button>
                       {session?.user?.id === order.customerId && order.paymentStatus === "PENDING" && (
                         <>
@@ -418,9 +419,11 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
                             variant="outline"
                             size="sm"
                             onClick={() => document.getElementById("replace-receipt")?.click()}
-                            disabled={uploadingReceipt}>
+                            disabled={uploadingReceipt}
+                            className="w-full sm:w-auto">
                             <RefreshCw className="h-4 w-4 mr-1" />
-                            Replace Receipt
+                            <span className="hidden sm:inline">Replace Receipt</span>
+                            <span className="sm:hidden">Replace</span>
                           </Button>
                         </>
                       )}

@@ -158,7 +158,7 @@ export default function SellerOrdersContent() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading orders..." />
       </div>
     );
@@ -173,24 +173,26 @@ export default function SellerOrdersContent() {
         </div>
 
         <Tabs value={selectedStatus} onValueChange={(v) => setSelectedStatus(v as OrderStatus)} className="mb-6">
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8">
-            <TabsTrigger value="ALL">All</TabsTrigger>
-            <TabsTrigger value="PENDING">Pending</TabsTrigger>
-            <TabsTrigger value="CONFIRMED">Confirmed</TabsTrigger>
-            <TabsTrigger value="PREPARING">Preparing</TabsTrigger>
-            <TabsTrigger value="READY_FOR_PICKUP" className="hidden lg:flex">
-              Ready
-            </TabsTrigger>
-            <TabsTrigger value="OUT_FOR_DELIVERY" className="hidden lg:flex">
-              Delivery
-            </TabsTrigger>
-            <TabsTrigger value="DELIVERED" className="hidden lg:flex">
-              Delivered
-            </TabsTrigger>
-            <TabsTrigger value="PICKED_UP" className="hidden lg:flex">
-              Picked Up
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList className="inline-flex w-auto lg:grid lg:w-full lg:grid-cols-8 h-auto">
+              <TabsTrigger value="ALL" className="text-xs sm:text-sm">All</TabsTrigger>
+              <TabsTrigger value="PENDING" className="text-xs sm:text-sm">Pending</TabsTrigger>
+              <TabsTrigger value="CONFIRMED" className="text-xs sm:text-sm">Confirmed</TabsTrigger>
+              <TabsTrigger value="PREPARING" className="text-xs sm:text-sm">Preparing</TabsTrigger>
+              <TabsTrigger value="READY_FOR_PICKUP" className="text-xs sm:text-sm">
+                Ready
+              </TabsTrigger>
+              <TabsTrigger value="OUT_FOR_DELIVERY" className="text-xs sm:text-sm">
+                Delivery
+              </TabsTrigger>
+              <TabsTrigger value="DELIVERED" className="text-xs sm:text-sm">
+                Delivered
+              </TabsTrigger>
+              <TabsTrigger value="PICKED_UP" className="text-xs sm:text-sm">
+                Picked Up
+              </TabsTrigger>
+            </TabsList>
+          </div>
         </Tabs>
 
         {orders.length === 0 ? (
@@ -207,10 +209,10 @@ export default function SellerOrdersContent() {
             {orders.map((order) => (
               <Card key={order.id}>
                 <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-1 flex-1">
-                      <CardTitle className="text-lg">Order #{order.orderNumber}</CardTitle>
-                      <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div className="space-y-1 flex-1 min-w-0">
+                      <CardTitle className="text-base sm:text-lg break-all">Order #{order.orderNumber}</CardTitle>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
                           {formatDate(order.createdAt)}
@@ -225,10 +227,10 @@ export default function SellerOrdersContent() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col items-end gap-2">
-                      <div className="flex gap-2">
-                        <Badge className={STATUS_COLORS[order.status]}>{STATUS_LABELS[order.status as OrderStatus] || order.status}</Badge>
-                        <Badge className={PAYMENT_STATUS_COLORS[order.paymentStatus] || "bg-gray-100 text-gray-800"}>
+                    <div className="flex flex-col items-start sm:items-end gap-2">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge className={`${STATUS_COLORS[order.status]} flex-shrink-0`}>{STATUS_LABELS[order.status as OrderStatus] || order.status}</Badge>
+                        <Badge className={`${PAYMENT_STATUS_COLORS[order.paymentStatus] || "bg-gray-100 text-gray-800"} flex-shrink-0`}>
                           {order.paymentStatus === "PENDING" && (order.receiptUrl ? "Pending Verification" : "Awaiting Receipt")}
                           {order.paymentStatus === "VERIFIED" && "Verified"}
                           {order.paymentStatus === "PAID" && "Paid"}

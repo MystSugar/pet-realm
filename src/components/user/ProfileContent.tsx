@@ -78,7 +78,7 @@ export default function ProfileContent() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading profile..." />
       </div>
     );
@@ -157,10 +157,10 @@ export default function ProfileContent() {
                 <Link key={order.id} href={`/orders/${order.id}`} className="block">
                   <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer border">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <p className="font-semibold text-charcoal-800">Order #{order.orderNumber}</p>
-                          <Badge className={getStatusColor(order.status)}>{order.status}</Badge>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          <p className="font-semibold text-charcoal-800 break-all">Order #{order.orderNumber}</p>
+                          <Badge className={`${getStatusColor(order.status)} flex-shrink-0`}>{order.status}</Badge>
                         </div>
                         <p className="text-sm text-charcoal-600 mb-1">
                           {order.items.reduce((sum, item) => sum + item.quantity, 0)} item(s) • {formatPrice(order.totalAmount)}
@@ -176,7 +176,7 @@ export default function ProfileContent() {
                           })}
                         </p>
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="w-full md:w-auto">
                         View Details
                       </Button>
                     </div>

@@ -126,7 +126,7 @@ export default function MarketplaceContent() {
 
       {/* Products Grid */}
       {products.length > 0 ? (
-        <div className="flex flex-wrap gap-8">
+        <div className="flex flex-wrap gap-8 justify-center items-center">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

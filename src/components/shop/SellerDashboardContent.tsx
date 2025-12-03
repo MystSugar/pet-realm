@@ -87,7 +87,7 @@ export default function SellerDashboardContent() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading dashboard..." />
       </div>
     );
@@ -95,7 +95,7 @@ export default function SellerDashboardContent() {
 
   if (error || !stats) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <Card>
           <CardContent className="pt-6">
             <div className="text-center space-y-4">
@@ -115,15 +115,15 @@ export default function SellerDashboardContent() {
     <div className="bg-cream-50">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold flex items-center gap-2">
-              <Store className="h-8 w-8" />
+            <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-2">
+              <Store className="h-6 w-6 sm:h-8 sm:w-8" />
               Seller Dashboard
             </h1>
-            <p className="text-muted-foreground mt-1">Manage your shop and track performance</p>
+            <p className="text-sm sm:text-base text-muted-foreground mt-1">Manage your shop and track performance</p>
           </div>
-          <Button onClick={() => router.push("/shop/products/new")}>
+          <Button onClick={() => router.push("/shop/products/new")} className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Add Product
           </Button>
@@ -248,10 +248,10 @@ export default function SellerDashboardContent() {
                   return (
                     <Card key={order.id} className="p-4 hover:shadow-md transition-shadow cursor-pointer border">
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <p className="font-semibold text-charcoal-800">{order.orderNumber}</p>
-                            <Badge className={`${statusConfig.color} text-white`}>{statusConfig.label}</Badge>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <p className="font-semibold text-charcoal-800 break-all">{order.orderNumber}</p>
+                            <Badge className={`${statusConfig.color} text-white flex-shrink-0`}>{statusConfig.label}</Badge>
                           </div>
                           <p className="text-sm text-charcoal-600 mb-1">
                             Customer: {order.customer.name} • {formatPrice(total)}
@@ -267,7 +267,7 @@ export default function SellerDashboardContent() {
                             })}
                           </p>
                         </div>
-                        <Button variant="outline" size="sm" onClick={() => router.push(`/shop/orders/${order.id}`)}>
+                        <Button variant="outline" size="sm" onClick={() => router.push(`/shop/orders/${order.id}`)} className="w-full md:w-auto">
                           View Details
                         </Button>
                       </div>

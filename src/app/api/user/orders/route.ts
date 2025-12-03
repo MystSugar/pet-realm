@@ -18,9 +18,15 @@ export async function GET(request: NextRequest) {
       where: {
         customerId: session.user.id,
       },
-      include: {
+      select: {
+        id: true,
+        orderNumber: true,
+        status: true,
+        total: true,
+        createdAt: true,
         items: {
-          include: {
+          select: {
+            quantity: true,
             product: {
               select: {
                 name: true,
@@ -35,7 +41,13 @@ export async function GET(request: NextRequest) {
       take: limit,
     });
 
-    return NextResponse.json({ orders });
+    // Convert Prisma Decimal to number for JSON serialization
+    const ordersWithNumbers = orders.map((order) => ({
+      ...order,
+      totalAmount: typeof order.total === "number" ? order.total : parseFloat(order.total.toString()),
+    }));
+
+    return NextResponse.json({ orders: ordersWithNumbers });
   } catch (error) {
     console.error("Orders API error:", error);
     return NextResponse.json({ error: "Failed to fetch orders" }, { status: 500 });

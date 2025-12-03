@@ -115,7 +115,7 @@ export default function ShopDetailContent({ shopId }: ShopDetailContentProps) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading shop..." />
       </div>
     );

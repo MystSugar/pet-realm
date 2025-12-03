@@ -139,12 +139,16 @@ export default function CartContent() {
   }
 
   if (loading) {
-    return <LoadingState message="Loading your cart..." />;
+    return (
+      <div className="min-h-[calc(100vh-200px)]">
+        <LoadingState message="Loading your cart..." />
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-12">
+      <div className="max-w-2xl mx-auto text-center py-12 min-h-[calc(100vh-200px)]">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
           <p className="text-red-800 mb-4">{error}</p>
           <Button onClick={() => fetchCart()}>Try Again</Button>

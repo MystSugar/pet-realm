@@ -11,9 +11,9 @@ export default function MarketplacePage() {
   return (
     <Layout>
       <div className="min-h-screen bg-gradient-to-br from-cream-50 to-secondary-50">
-        <div className="container mx-auto sm:px-6 lg:px-8 py-2 lg:py-6 max-w-6xl">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6 max-w-6xl">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Marketplace</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Marketplace</h1>
             <p className="text-gray-600">Discover the best pet supplies and services across the Maldives</p>
           </div>
 

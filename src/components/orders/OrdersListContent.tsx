@@ -75,7 +75,7 @@ export default function OrdersListContent() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading orders..." />
       </div>
     );
@@ -83,7 +83,7 @@ export default function OrdersListContent() {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
         <Card>
           <CardContent className="pt-6">
             <div className="text-center space-y-4">
@@ -141,10 +141,10 @@ export default function OrdersListContent() {
                 <Card key={order.id} className="hover:shadow-lg transition-shadow">
                   <CardContent>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="space-y-2 flex-1">
-                        <div className="flex items-center gap-3">
-                          <h3 className="font-semibold text-lg">{order.orderNumber}</h3>
-                          <Badge className={`${statusConfig.color} text-white`}>
+                      <div className="space-y-2 flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="font-semibold text-base sm:text-lg break-all">{order.orderNumber}</h3>
+                          <Badge className={`${statusConfig.color} text-white flex-shrink-0`}>
                             <StatusIcon className="h-3 w-3 mr-1" />
                             {statusConfig.label}
                           </Badge>
@@ -169,7 +169,7 @@ export default function OrdersListContent() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                        <div className="text-right">
+                        <div className="text-left sm:text-right">
                           <p className="text-sm text-muted-foreground">Total</p>
                           <p className="text-xl font-bold">{formatPrice(total)}</p>
                         </div>

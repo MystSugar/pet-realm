@@ -457,28 +457,30 @@ export default function ShopSettingsContent() {
         {success && <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">{success}</div>}
 
         <Tabs defaultValue="info" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="info">
-              <Store className="w-4 h-4 mr-2" />
-              Info
-            </TabsTrigger>
-            <TabsTrigger value="location">
-              <MapPin className="w-4 h-4 mr-2" />
-              Location
-            </TabsTrigger>
-            <TabsTrigger value="business">
-              <Briefcase className="w-4 h-4 mr-2" />
-              Business
-            </TabsTrigger>
-            <TabsTrigger value="bank">
-              <CreditCard className="w-4 h-4 mr-2" />
-              Payment
-            </TabsTrigger>
-            <TabsTrigger value="account">
-              <User className="w-4 h-4 mr-2" />
-              Account
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList className="inline-flex w-auto lg:grid lg:w-full lg:grid-cols-5 h-auto">
+              <TabsTrigger value="info" className="text-xs sm:text-sm">
+                <Store className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Info
+              </TabsTrigger>
+              <TabsTrigger value="location" className="text-xs sm:text-sm">
+                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Location
+              </TabsTrigger>
+              <TabsTrigger value="business" className="text-xs sm:text-sm">
+                <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Business
+              </TabsTrigger>
+              <TabsTrigger value="bank" className="text-xs sm:text-sm">
+                <CreditCard className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Payment
+              </TabsTrigger>
+              <TabsTrigger value="account" className="text-xs sm:text-sm">
+                <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                Account
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* Shop Information Tab */}
           <TabsContent value="info">

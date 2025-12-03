@@ -92,19 +92,19 @@ export default function ShopsContentOptionB() {
 
   return (
     <div className="bg-cream-50">
-      <div className="container mx-auto sm:px-6 lg:px-8 py-8 max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Pet Shops</h1>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-6xl">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Pet Shops</h1>
           <p className="text-gray-600">Discover local pet shops and supplies across the Maldives</p>
         </div>
 
         {/* Filters - Compact Dropdowns */}
-        <div className="mb-8 flex flex-wrap items-center gap-3">
-          <span className="text-sm font-medium text-gray-700">Filter:</span>
+        <div className="mb-6 sm:mb-8 flex flex-wrap items-center gap-3">
+          <span className="text-sm font-medium text-gray-700 hidden sm:inline">Filter:</span>
 
           {/* Category Filter */}
           <Select value={selectedCategory || "all"} onValueChange={(val) => updateFilter("category", val === "all" ? null : val)}>
-            <SelectTrigger className="w-[180px] bg-white">
+            <SelectTrigger className="w-full sm:w-[180px] bg-white">
               <SelectValue placeholder="Shop Type" />
             </SelectTrigger>
             <SelectContent>
@@ -119,7 +119,7 @@ export default function ShopsContentOptionB() {
 
           {/* Island Filter */}
           <Select value={selectedIsland || "all"} onValueChange={(val) => updateFilter("island", val === "all" ? null : val)}>
-            <SelectTrigger className="w-[180px] bg-white">
+            <SelectTrigger className="w-full sm:w-[180px] bg-white">
               <SelectValue placeholder="Location" />
             </SelectTrigger>
             <SelectContent>
@@ -163,11 +163,11 @@ export default function ShopsContentOptionB() {
 
         {/* Shop Grid */}
         {!loading && shops.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {shops.map((shop) => (
               <Card
                 key={shop.id}
-                className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full w-70 overflow-hidden p-0"
+                className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full overflow-hidden p-0"
                 onClick={() => router.push(`/shops/${shop.id}`)}>
                 {/* Banner/Logo */}
                 <div className="relative h-48 w-full overflow-hidden bg-gray-100">

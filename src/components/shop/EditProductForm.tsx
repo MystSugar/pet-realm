@@ -473,18 +473,21 @@ export default function EditProductForm({ productId }: EditProductFormProps) {
                               type="button"
                               variant="outline"
                               size="sm"
-                              className="flex-1"
+                              className="flex-1 text-xs sm:text-sm"
                               onClick={() => document.getElementById(`replace-image-${index}`)?.click()}
                               disabled={replacingIndex === index}>
                               {replacingIndex === index ? (
                                 <>
                                   <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                                  <span className="text-xs">Replacing...</span>
+                                  <span>Replacing...</span>
                                 </>
                               ) : (
                                 <>
                                   <RefreshCw className="h-3 w-3 mr-1" />
-                                  <span className="text-xs">Replace</span>
+                                  <span className="hidden sm:inline">Replace</span>
+                                  <span className="sm:hidden">
+                                    <Upload className="h-3 w-3" />
+                                  </span>
                                 </>
                               )}
                             </Button>
@@ -493,7 +496,8 @@ export default function EditProductForm({ productId }: EditProductFormProps) {
                               variant="destructive"
                               size="sm"
                               onClick={() => removeImageUrl(index)}
-                              disabled={replacingIndex === index}>
+                              disabled={replacingIndex === index}
+                              className="px-2 sm:px-3">
                               <X className="h-3 w-3" />
                             </Button>
                           </div>

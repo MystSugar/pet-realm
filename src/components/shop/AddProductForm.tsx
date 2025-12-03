@@ -281,7 +281,7 @@ export default function AddProductForm() {
 
             {/* Pricing & Inventory */}
             <Card>
-              <CardContent className="pt-6 space-y-4">
+              <CardContent className="space-y-4">
                 <h2 className="text-xl font-semibold mb-4">Pricing & Inventory</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -368,7 +368,7 @@ export default function AddProductForm() {
 
             {/* Images */}
             <Card>
-              <CardContent className="pt-6 space-y-4">
+              <CardContent className="space-y-4">
                 <h2 className="text-xl font-semibold mb-4">Product Images</h2>
 
                 <div>
@@ -407,19 +407,35 @@ export default function AddProductForm() {
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {imageUrls.map((url, index) => (
-                        <div key={index} className="relative group">
+                        <div key={index} className="relative space-y-2">
                           <div className="aspect-square border rounded-lg overflow-hidden">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={url} alt={`Product ${index + 1}`} className="w-full h-full object-cover" />
                           </div>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="icon"
-                            className="absolute top-2 right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={() => removeImageUrl(index)}>
-                            <X className="h-4 w-4" />
-                          </Button>
+                          <div className="flex gap-1">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="flex-1 text-xs sm:text-sm"
+                              onClick={() => {
+                                removeImageUrl(index);
+                                document.getElementById("product-image-upload")?.click();
+                              }}
+                              title="Replace image">
+                              <Upload className="h-3 w-3 mr-1" />
+                              <span className="hidden sm:inline">Replace</span>
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="sm"
+                              className="px-2 sm:px-3"
+                              onClick={() => removeImageUrl(index)}
+                              title="Remove image">
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -430,7 +446,7 @@ export default function AddProductForm() {
 
             {/* Tags */}
             <Card>
-              <CardContent className="pt-6 space-y-4">
+              <CardContent className="space-y-4">
                 <h2 className="text-xl font-semibold mb-4">Tags</h2>
 
                 <FormField
@@ -453,7 +469,7 @@ export default function AddProductForm() {
             {/* Animal-Specific Fields */}
             {isLiveAnimal && (
               <Card>
-                <CardContent className="pt-6 space-y-4">
+                <CardContent className="space-y-4">
                   <h2 className="text-xl font-semibold mb-4">Animal Information</h2>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
