@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import ShopDetailContent from "@/components/shops/ShopDetailContent";
 
 interface ShopPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: ShopPageProps): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/shops/${id}`, {
@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: ShopPageProps): Promise<Metad
   }
 }
 
-export default function ShopPage({ params }: ShopPageProps) {
-  return <ShopDetailContent shopId={params.id} />;
+export default async function ShopPage({ params }: ShopPageProps) {
+  const { id } = await params;
+  return <ShopDetailContent shopId={id} />;
 }

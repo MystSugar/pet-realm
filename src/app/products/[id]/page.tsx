@@ -4,18 +4,19 @@ import ProductDetailContent from "@/components/products/ProductDetailContent";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params;
   return (
     <Layout>
       <div className="min-h-screen bg-gradient-to-br from-cream-50 to-secondary-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Suspense fallback={<ProductDetailSkeleton />}>
-            <ProductDetailContent productId={params.id} />
+            <ProductDetailContent productId={id} />
           </Suspense>
         </div>
       </div>

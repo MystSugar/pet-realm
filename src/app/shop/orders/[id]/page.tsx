@@ -20,10 +20,11 @@ function OrderDetailSkeleton() {
   );
 }
 
-export default function SellerOrderDetailPage({ params }: { params: { id: string } }) {
+export default async function SellerOrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   return (
     <Suspense fallback={<OrderDetailSkeleton />}>
-      <SellerOrderDetailContent orderId={params.id} />
+      <SellerOrderDetailContent orderId={id} />
     </Suspense>
   );
 }
