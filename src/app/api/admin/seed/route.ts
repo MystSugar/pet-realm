@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
         businessHours: {
           days: ["MON", "TUE", "WED", "THU", "SAT", "SUN"],
           openTime: "09:00",
-          closeTime: "21:00"
+          closeTime: "23:00"
         },
         deliveryZones: {
           zones: [

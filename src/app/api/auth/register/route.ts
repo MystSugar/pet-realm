@@ -8,10 +8,10 @@ import { sendEmail, generateEmailVerificationTemplate } from "@/lib/email";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, password, accountType, idNumber, idType, userType } = body;
+    const { name, email, phone, password, accountType, idNumber, idType } = body;
 
     // Validation
-    if (!name || !email || !password || !accountType || !idNumber || !idType || !userType) {
+    if (!name || !email || !password || !accountType || !idNumber || !idType) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -42,6 +42,9 @@ export async function POST(request: Request) {
     const emailVerificationToken = crypto.randomBytes(32).toString("hex");
     const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
+    // Infer userType from idType: National ID = Maldivian, Passport = Foreigner
+    const userType = idType === "NATIONAL_ID" ? "MALDIVIAN" : "FOREIGNER";
+
     // Create user
     const user = await prisma.user.create({
       data: {
@@ -55,7 +58,7 @@ export async function POST(request: Request) {
         emailVerificationExpires,
         idNumber,
         idType,
-        userType,
+        userType, // Automatically inferred from idType
       },
     });
 

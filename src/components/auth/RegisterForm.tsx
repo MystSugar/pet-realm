@@ -21,7 +21,6 @@ export default function RegisterForm() {
     accountType: "",
     idNumber: "",
     idType: "",
-    userType: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -69,12 +68,6 @@ export default function RegisterForm() {
       return;
     }
 
-    if (!formData.userType) {
-      setError("Please select your residency status");
-      setIsLoading(false);
-      return;
-    }
-
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -89,7 +82,6 @@ export default function RegisterForm() {
           accountType: formData.accountType,
           idNumber: formData.idNumber,
           idType: formData.idType,
-          userType: formData.userType,
         }),
       });
 
@@ -177,9 +169,9 @@ export default function RegisterForm() {
             </div>
           </div>
 
-          {/* ID & Residency Information */}
+          {/* ID Information */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-gray-700 border-b pb-2">ID & Residency</h3>
+            <h3 className="text-sm font-medium text-gray-700 border-b pb-2">ID Verification</h3>
 
             <div className="space-y-2">
               <Label htmlFor="idType">ID type</Label>
