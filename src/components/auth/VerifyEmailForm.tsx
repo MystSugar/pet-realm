@@ -17,13 +17,16 @@ export default function VerifyEmailForm() {
 
   useEffect(() => {
     const verifyEmail = async () => {
+      
       if (!token) {
+        console.log("No token found");
         setStatus("no-token");
         setMessage("No verification token provided. Please check your email for the verification link.");
         return;
       }
 
       try {
+        console.log("Calling API...");
         const response = await fetch("/api/auth/verify-email", {
           method: "POST",
           headers: {
@@ -32,7 +35,9 @@ export default function VerifyEmailForm() {
           body: JSON.stringify({ token }),
         });
 
+        console.log("API response status:", response.status);
         const data = await response.json();
+        console.log("API response data:", data);
 
         if (response.ok) {
           setStatus("success");
@@ -42,12 +47,9 @@ export default function VerifyEmailForm() {
           setMessage(data.error || "Verification failed");
         }
       } catch (err) {
+        console.error("Verification error:", err);
         setStatus("error");
         setMessage("Something went wrong. Please try again.");
-        if (process.env.NODE_ENV === "development") {
-          // eslint-disable-next-line no-console
-          console.error("Email verification error:", err);
-        }
       }
     };
 
@@ -59,7 +61,7 @@ export default function VerifyEmailForm() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto bg-white">
       <CardHeader className="text-center">
         <div className="w-12 h-12 flex items-center justify-center mx-auto">
           <Image src="/icon.png" alt="Pet Realm" width={48} height={48} />

@@ -96,7 +96,7 @@ export default function RegisterForm() {
 
       // Show success message before redirect
       if (data.requiresEmailVerification) {
-        setSuccess(`Account created! We've sent a verification link to ${formData.email}. Please check your email (and spam folder) to verify your account.`);
+        setSuccess(`Success! We've sent a verification link to ${formData.email}. Please check your email (and spam folder) to verify your account.`);
         // Redirect after showing message
         setTimeout(() => {
           router.push("/auth/signin?message=Please check your email to verify your account before signing in.");
@@ -160,7 +160,7 @@ export default function RegisterForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone number (optional)</Label>
+              <Label htmlFor="phone">Phone number</Label>
               <div className="relative">
                 <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
@@ -168,6 +168,7 @@ export default function RegisterForm() {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => handleInputChange("phone", e.target.value)}
+                  required
                   className="pl-10"
                   placeholder="Enter your phone number"
                 />

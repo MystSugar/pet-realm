@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const { name, email, phone, password, accountType, idNumber, idType } = body;
 
     // Validation
-    if (!name || !email || !password || !accountType || !idNumber || !idType) {
+    if (!name || !email || !phone || !password || !accountType || !idNumber || !idType) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       data: {
         name,
         email,
-        phone: phone || null, // Set to null if not provided
+        phone,
         password: hashedPassword,
         accountType: accountType as AccountType,
         emailVerified: false, // Start as not verified

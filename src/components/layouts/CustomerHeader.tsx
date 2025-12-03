@@ -27,8 +27,9 @@ export default function CustomerHeader({ user }: CustomerHeaderProps) {
   const { itemCount } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: "/" });
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    window.location.href = "/";
   };
 
   const handleSearch = (e: React.FormEvent) => {

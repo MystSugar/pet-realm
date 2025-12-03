@@ -16,13 +16,45 @@ export default function SignInForm() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
   const [error, setError] = useState("");
+  const [showResendButton, setShowResendButton] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
   const router = useRouter();
+
+  const handleResendVerification = async () => {
+    setIsResending(true);
+    setResendMessage("");
+    setError("");
+
+    try {
+      const response = await fetch("/api/auth/resend-verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setResendMessage(data.message);
+        setShowResendButton(false);
+      } else {
+        setError(data.error || "Failed to resend verification email");
+      }
+    } catch (error) {
+      setError("Something went wrong: " + (error as Error).message);
+    } finally {
+      setIsResending(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setShowResendButton(false);
+    setResendMessage("");
 
     try {
       const result = await signIn("credentials", {
@@ -32,7 +64,24 @@ export default function SignInForm() {
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        // Check if it's an unverified email issue
+        try {
+          const checkResponse = await fetch("/api/auth/check-verification", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          const checkData = await checkResponse.json();
+          
+          if (checkData.emailVerified === false) {
+            setError("Please verify your email before signing in. Check your inbox for the verification link.");
+            setShowResendButton(true);
+          } else {
+            setError("Invalid email or password");
+          }
+        } catch {
+          setError("Invalid email or password");
+        }
       } else {
         router.push("/");
       }
@@ -98,7 +147,28 @@ export default function SignInForm() {
             </div>
           </div>
 
-          {error && <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-md p-3">{error}</div>}
+          {error && (
+            <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-md p-3">
+              {error}
+              {showResendButton && (
+                <Button
+                  type="button"
+                  onClick={handleResendVerification}
+                  disabled={isResending}
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 w-full">
+                  {isResending ? "Sending..." : "Resend Verification Email"}
+                </Button>
+              )}
+            </div>
+          )}
+
+          {resendMessage && (
+            <div className="text-green-600 text-sm bg-green-50 border border-green-200 rounded-md p-3">
+              {resendMessage}
+            </div>
+          )}
 
           <Button type="submit" disabled={isLoading} className="w-full">
             {isLoading ? "Signing in..." : "Sign in"}

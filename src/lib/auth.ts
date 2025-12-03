@@ -86,6 +86,22 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+
+    async signIn({ user }) {
+      // Check if email is verified before allowing sign in
+      if (user?.email) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email },
+          select: { emailVerified: true },
+        });
+
+        if (dbUser && !dbUser.emailVerified) {
+          // Return false to prevent sign in
+          return false;
+        }
+      }
+      return true;
+    },
   },
 
   // Remove or comment out the pages section
