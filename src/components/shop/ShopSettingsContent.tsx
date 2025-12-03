@@ -146,7 +146,7 @@ export default function ShopSettingsContent() {
       setBusinessForm({
         license: data.license || "",
         businessHours: data.businessHours || { days: [], openTime: "09:00", closeTime: "17:00" },
-        deliveryZones: data.deliveryZones || [],
+        deliveryZones: Array.isArray(data.deliveryZones) ? data.deliveryZones : [],
       });
 
       setBankForm({
@@ -359,24 +359,26 @@ export default function ShopSettingsContent() {
   };
 
   const toggleDeliveryZone = (area: string) => {
-    const exists = businessForm.deliveryZones.find((z) => z.area === area);
+    const deliveryZones = Array.isArray(businessForm.deliveryZones) ? businessForm.deliveryZones : [];
+    const exists = deliveryZones.find((z) => z.area === area);
     if (exists) {
       setBusinessForm({
         ...businessForm,
-        deliveryZones: businessForm.deliveryZones.filter((z) => z.area !== area),
+        deliveryZones: deliveryZones.filter((z) => z.area !== area),
       });
     } else {
       setBusinessForm({
         ...businessForm,
-        deliveryZones: [...businessForm.deliveryZones, { area, fee: 0 }],
+        deliveryZones: [...deliveryZones, { area, fee: 0 }],
       });
     }
   };
 
   const updateDeliveryFee = (area: string, fee: number) => {
+    const deliveryZones = Array.isArray(businessForm.deliveryZones) ? businessForm.deliveryZones : [];
     setBusinessForm({
       ...businessForm,
-      deliveryZones: businessForm.deliveryZones.map((z) => (z.area === area ? { ...z, fee } : z)),
+      deliveryZones: deliveryZones.map((z) => (z.area === area ? { ...z, fee } : z)),
     });
   };
 
@@ -889,7 +891,8 @@ export default function ShopSettingsContent() {
                     </div>
                     <div className="space-y-3">
                       {ISLANDS.map((island) => {
-                        const zone = businessForm.deliveryZones.find((z) => z.area === island);
+                        const deliveryZones = Array.isArray(businessForm.deliveryZones) ? businessForm.deliveryZones : [];
+                        const zone = deliveryZones.find((z) => z.area === island);
                         const isSelected = !!zone;
 
                         return (

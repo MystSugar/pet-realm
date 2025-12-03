@@ -38,7 +38,27 @@ export async function GET() {
       return NextResponse.json({ error: "Shop not found" }, { status: 404 });
     }
 
-    return NextResponse.json(shop);
+    // Normalize deliveryZones - handle both old nested format and new flat array format
+    let normalizedDeliveryZones = [];
+    if (shop.deliveryZones) {
+      const zones = shop.deliveryZones as any;
+      // Old format: { zones: [...] }
+      if (zones.zones && Array.isArray(zones.zones)) {
+        normalizedDeliveryZones = zones.zones.map((z: any) => ({
+          area: z.island || z.area,
+          fee: z.fee || 0,
+        }));
+      }
+      // New format: already an array
+      else if (Array.isArray(zones)) {
+        normalizedDeliveryZones = zones;
+      }
+    }
+
+    return NextResponse.json({
+      ...shop,
+      deliveryZones: normalizedDeliveryZones,
+    });
   } catch (error) {
     console.error("Error fetching shop settings:", error);
     return NextResponse.json({ error: "Failed to fetch shop settings" }, { status: 500 });
