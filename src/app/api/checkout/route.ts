@@ -97,12 +97,24 @@ export async function POST(request: NextRequest) {
 
     // Calculate delivery fee based on delivery island
     let deliveryFee = 0;
-    if (deliveryType === "DELIVERY" && deliveryIsland && shop.deliveryZones) {
+    if (deliveryType === "DELIVERY" && deliveryIsland) {
+      if (!shop.deliveryZones) {
+        return Response.json({ error: "This shop has not configured delivery zones yet" }, { status: 400 });
+      }
+
       const deliveryZones = shop.deliveryZones as Array<{ area: string; fee: number }>;
       const zone = deliveryZones.find((z) => z.area === deliveryIsland);
-      if (zone) {
-        deliveryFee = zone.fee;
+      
+      if (!zone) {
+        return Response.json(
+          { 
+            error: `Sorry, ${shop.name} does not deliver to ${deliveryIsland}. Please choose pickup or select a different shop.` 
+          }, 
+          { status: 400 }
+        );
       }
+      
+      deliveryFee = zone.fee;
     }
 
     const total = subtotal + taxAmount + deliveryFee;
