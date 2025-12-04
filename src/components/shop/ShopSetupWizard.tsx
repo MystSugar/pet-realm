@@ -223,7 +223,8 @@ export default function ShopSetupWizard() {
   const progress = (currentStep / STEPS.length) * 100;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+    <div className="bg-cream-50">
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Set Up Your Shop</h1>
         <p className="text-muted-foreground">Complete the steps below to start selling on Pet Realm</p>
@@ -576,6 +577,7 @@ export default function ShopSetupWizard() {
           </div>
         </CardContent>
       </Card>
+    </div>
     </div>
   );
 }
