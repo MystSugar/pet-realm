@@ -11,7 +11,7 @@ export default async function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cream-50 to-secondary-50 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-cream-50 to-secondary-50 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <ForgotPasswordForm />
       </div>
