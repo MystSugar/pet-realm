@@ -52,6 +52,13 @@ model Order {
   receiptVerifiedAt    DateTime?     
   receiptVerifiedBy    String?       // Seller who verified the receipt
   receiptNotes         String?       // Notes from seller about receipt verification
+  confirmedAt          DateTime?     // When order was confirmed by seller
+  preparingAt          DateTime?     // When order preparation started
+  readyAt              DateTime?     // When order became ready for pickup
+  outForDeliveryAt     DateTime?     // When order was sent out for delivery
+  deliveredAt          DateTime?     // When order was delivered
+  pickedUpAt           DateTime?     // When order was picked up by customer
+  cancelledAt          DateTime?     // When order was cancelled
   createdAt            DateTime      @default(now())
   updatedAt            DateTime      @updatedAt
   deletedAt            DateTime?     // Soft delete support

@@ -40,6 +40,15 @@ interface Order {
   deliveryIsland: string;
   deliveryAtoll: string;
   receiptUrl: string | null;
+  receiptUploadedAt: Date | null;
+  receiptVerifiedAt: Date | null;
+  confirmedAt: Date | null;
+  preparingAt: Date | null;
+  readyAt: Date | null;
+  outForDeliveryAt: Date | null;
+  deliveredAt: Date | null;
+  pickedUpAt: Date | null;
+  cancelledAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
   customer: {
@@ -202,7 +211,7 @@ export default function SellerOrderDetailContent({ orderId }: SellerOrderDetailC
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading order details..." />
       </div>
     );
@@ -210,7 +219,7 @@ export default function SellerOrderDetailContent({ orderId }: SellerOrderDetailC
 
   if (error || !order) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <Card>
           <CardContent className="pt-6 text-center py-12">
             <AlertCircle className="mx-auto h-12 w-12 text-red-500 mb-4" />
@@ -293,6 +302,232 @@ export default function SellerOrderDetailContent({ orderId }: SellerOrderDetailC
                     </Select>
                   </div>
                 )}
+              </CardContent>
+            </Card>
+
+            {/* Order Timeline */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="w-5 h-5" />
+                  Order Timeline
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Order Placed */}
+                  <div className="flex gap-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-3 h-3 rounded-full bg-primary-600" />
+                      <div className="w-0.5 h-full bg-primary-200 mt-1" />
+                    </div>
+                    <div className="flex-1 pb-4">
+                      <p className="font-medium">Order Placed</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.createdAt).toLocaleString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Receipt Uploaded */}
+                  {order.receiptUploadedAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-600" />
+                        <div className="w-0.5 h-full bg-blue-200 mt-1" />
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <p className="font-medium">Receipt Uploaded</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.receiptUploadedAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Receipt Verified */}
+                  {order.receiptVerifiedAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-green-600" />
+                        <div className="w-0.5 h-full bg-green-200 mt-1" />
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <p className="font-medium">Payment Verified</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.receiptVerifiedAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Order Confirmed */}
+                  {order.confirmedAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-600" />
+                        <div className="w-0.5 h-full bg-blue-200 mt-1" />
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <p className="font-medium">Order Confirmed</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.confirmedAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Preparing */}
+                  {order.preparingAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-purple-600" />
+                        <div className="w-0.5 h-full bg-purple-200 mt-1" />
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <p className="font-medium">Preparing Order</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.preparingAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Ready for Pickup / Out for Delivery */}
+                  {order.readyAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-green-600" />
+                        <div className="w-0.5 h-full bg-green-200 mt-1" />
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <p className="font-medium">Ready for Pickup</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.readyAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {order.outForDeliveryAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-600" />
+                        <div className="w-0.5 h-full bg-blue-200 mt-1" />
+                      </div>
+                      <div className="flex-1 pb-4">
+                        <p className="font-medium">Out for Delivery</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.outForDeliveryAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Completed */}
+                  {order.deliveredAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium">Delivered</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.deliveredAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {order.pickedUpAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium">Picked Up</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.pickedUpAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Cancelled */}
+                  {order.cancelledAt && (
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-red-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium">Order Cancelled</p>
+                        <p className="text-sm text-muted-foreground">
+                          {new Date(order.cancelledAt).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
 

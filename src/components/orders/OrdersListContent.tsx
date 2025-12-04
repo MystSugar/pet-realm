@@ -75,7 +75,7 @@ export default function OrdersListContent() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading orders..." />
       </div>
     );
@@ -83,7 +83,7 @@ export default function OrdersListContent() {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <Card>
           <CardContent className="pt-6">
             <div className="text-center space-y-4">

@@ -54,6 +54,13 @@ interface Order {
   paymentStatus: PaymentStatus;
   receiptUrl: string | null;
   receiptUploadedAt: Date | null;
+  confirmedAt: Date | null;
+  preparingAt: Date | null;
+  readyAt: Date | null;
+  outForDeliveryAt: Date | null;
+  deliveredAt: Date | null;
+  pickedUpAt: Date | null;
+  cancelledAt: Date | null;
   createdAt: Date;
   customerId: string;
   items: OrderItem[];
@@ -192,7 +199,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <LoadingState message="Loading order details..." />
       </div>
     );
@@ -200,7 +207,7 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
 
   if (error || !order) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-6xl bg-cream-50 min-h-[calc(100vh-200px)]">
+      <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
         <Card>
           <CardContent className="pt-6">
             <div className="text-center space-y-4">
@@ -277,6 +284,181 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
                 </Badge>
               </div>
             </CardHeader>
+          </Card>
+
+          {/* Order Timeline */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Order Timeline</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className="h-2 w-2 rounded-full bg-green-500" />
+                    <div className="w-0.5 h-full bg-gray-200 mt-1" />
+                  </div>
+                  <div className="flex-1 pb-4">
+                    <p className="font-medium">Order Placed</p>
+                    <p className="text-sm text-muted-foreground">
+                      {new Date(order.createdAt).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                </div>
+
+                {order.confirmedAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                      <div className="w-0.5 h-full bg-gray-200 mt-1" />
+                    </div>
+                    <div className="flex-1 pb-4">
+                      <p className="font-medium">Order Confirmed</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.confirmedAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {order.preparingAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                      <div className="w-0.5 h-full bg-gray-200 mt-1" />
+                    </div>
+                    <div className="flex-1 pb-4">
+                      <p className="font-medium">Preparing Order</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.preparingAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {order.readyAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                      <div className="w-0.5 h-full bg-gray-200 mt-1" />
+                    </div>
+                    <div className="flex-1 pb-4">
+                      <p className="font-medium">
+                        {order.deliveryType === "PICKUP" ? "Ready for Pickup" : "Ready"}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.readyAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {order.outForDeliveryAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                      <div className="w-0.5 h-full bg-gray-200 mt-1" />
+                    </div>
+                    <div className="flex-1 pb-4">
+                      <p className="font-medium">Out for Delivery</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.outForDeliveryAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {order.deliveredAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium">Delivered</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.deliveredAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {order.pickedUpAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium">Picked Up</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.pickedUpAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {order.cancelledAt && (
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="h-2 w-2 rounded-full bg-red-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-red-600">Cancelled</p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(order.cancelledAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
           </Card>
 
           {/* Order Items */}

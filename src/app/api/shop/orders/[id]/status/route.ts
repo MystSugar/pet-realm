@@ -43,14 +43,30 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
+    // Set appropriate timestamp based on status
+    const now = new Date();
+    const timestampField: Record<string, Date | undefined> = {};
+    
+    if (status === "CONFIRMED") timestampField.confirmedAt = now;
+    else if (status === "PREPARING") timestampField.preparingAt = now;
+    else if (status === "READY_FOR_PICKUP") timestampField.readyAt = now;
+    else if (status === "OUT_FOR_DELIVERY") timestampField.outForDeliveryAt = now;
+    else if (status === "DELIVERED") timestampField.deliveredAt = now;
+    else if (status === "PICKED_UP") timestampField.pickedUpAt = now;
+    else if (status === "CANCELLED") timestampField.cancelledAt = now;
+
     // Update the order status
     const updatedOrder = await prisma.order.update({
       where: { id },
-      data: { status },
+      data: { 
+        status,
+        ...timestampField,
+      },
     });
 
     return NextResponse.json(updatedOrder);
-  } catch {
+  } catch (error) {
+    console.error("Error updating order status:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

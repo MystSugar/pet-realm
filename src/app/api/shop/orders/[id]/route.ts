@@ -135,9 +135,24 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       return NextResponse.json({ error: `Cannot transition from ${existingOrder.status} to ${status}` }, { status: 400 });
     }
 
+    // Set appropriate timestamp based on status
+    const now = new Date();
+    const timestampField: Record<string, Date | undefined> = {};
+    
+    if (status === "CONFIRMED") timestampField.confirmedAt = now;
+    else if (status === "PREPARING") timestampField.preparingAt = now;
+    else if (status === "READY_FOR_PICKUP") timestampField.readyAt = now;
+    else if (status === "OUT_FOR_DELIVERY") timestampField.outForDeliveryAt = now;
+    else if (status === "DELIVERED") timestampField.deliveredAt = now;
+    else if (status === "PICKED_UP") timestampField.pickedUpAt = now;
+    else if (status === "CANCELLED") timestampField.cancelledAt = now;
+
     const updatedOrder = await prisma.order.update({
       where: { id },
-      data: { status },
+      data: { 
+        status,
+        ...timestampField,
+      },
       include: {
         customer: {
           select: {

@@ -44,10 +44,13 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       return NextResponse.json({ error: "Payment already verified" }, { status: 400 });
     }
 
-    // Update payment status to VERIFIED
+    // Update payment status to VERIFIED and set timestamp
     const updatedOrder = await prisma.order.update({
       where: { id },
-      data: { paymentStatus: PaymentStatus.VERIFIED },
+      data: { 
+        paymentStatus: PaymentStatus.VERIFIED,
+        receiptVerifiedAt: new Date(),
+      },
     });
 
     return NextResponse.json(updatedOrder);
