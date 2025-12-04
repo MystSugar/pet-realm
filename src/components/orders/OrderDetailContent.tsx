@@ -461,6 +461,34 @@ export default function OrderDetailContent({ orderId }: OrderDetailContentProps)
             </CardContent>
           </Card>
 
+          {/* Seller Details */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Store className="h-5 w-5" />
+                Seller Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div>
+                <p className="text-sm text-muted-foreground">Shop Name</p>
+                <Link href={`/shops/${order.shop.id}`} className="font-medium hover:underline">
+                  {order.shop.name}
+                </Link>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Location</p>
+                <p className="text-sm font-medium">{order.shop.island}, {order.shop.atoll}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Contact Number</p>
+                <a href={`tel:${order.shop.phone}`} className="text-sm font-medium hover:underline">
+                  {order.shop.phone}
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Order Items */}
           <Card>
             <CardHeader>
