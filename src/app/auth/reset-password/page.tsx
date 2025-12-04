@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
 
 interface ResetPasswordPageProps {
-  searchParams: { token?: string };
+  searchParams: Promise<{ token?: string }>;
 }
 
 export default async function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
@@ -14,7 +14,8 @@ export default async function ResetPasswordPage({ searchParams }: ResetPasswordP
     redirect("/");
   }
 
-  const token = searchParams.token;
+  const params = await searchParams;
+  const token = params.token;
 
   if (!token) {
     redirect("/auth/forgot-password");
