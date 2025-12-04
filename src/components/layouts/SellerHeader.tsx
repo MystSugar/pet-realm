@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { User, LogOut, ChevronDown, BarChart3, Package, Settings, Store } from "lucide-react";
@@ -24,6 +25,8 @@ interface SellerHeaderProps {
 }
 
 export default function SellerHeader({ user, shop }: SellerHeaderProps) {
+  const pathname = usePathname();
+
   const handleSignOut = async () => {
     await signOut({ redirect: false });
     window.location.href = "/";
@@ -43,13 +46,28 @@ export default function SellerHeader({ user, shop }: SellerHeaderProps) {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/shop/dashboard" className="text-charcoal-600 hover:text-primary-600 font-medium transition-colors">
+            <Link 
+              href="/shop/dashboard" 
+              className={pathname === '/shop/dashboard' 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium transition-colors"}
+            >
               Dashboard
             </Link>
-            <Link href="/shop/products" className="text-charcoal-600 hover:text-primary-600 font-medium transition-colors">
+            <Link 
+              href="/shop/products" 
+              className={pathname?.startsWith('/shop/products') 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium transition-colors"}
+            >
               Products
             </Link>
-            <Link href="/shop/orders" className="text-charcoal-600 hover:text-primary-600 font-medium transition-colors">
+            <Link 
+              href="/shop/orders" 
+              className={pathname?.startsWith('/shop/orders') 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium transition-colors"}
+            >
               Orders
             </Link>
           </nav>

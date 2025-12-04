@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Search } from "lucide-react";
@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export default function PublicHeader() {
   const router = useRouter();
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
@@ -35,16 +36,36 @@ export default function PublicHeader() {
 
           {/* Navigation Links */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/marketplace" className="text-charcoal-600 hover:text-primary-600 font-medium">
+            <Link 
+              href="/marketplace" 
+              className={pathname === '/marketplace' 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium"}
+            >
               Marketplace
             </Link>
-            <Link href="/shops" className="text-charcoal-600 hover:text-primary-600 font-medium">
+            <Link 
+              href="/shops" 
+              className={pathname === '/shops' 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium"}
+            >
               Pet Shops
             </Link>
-            <Link href="/about" className="text-charcoal-600 hover:text-primary-600 font-medium">
+            <Link 
+              href="/about" 
+              className={pathname === '/about' 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium"}
+            >
               About
             </Link>
-            <Link href="/contact" className="text-charcoal-600 hover:text-primary-600 font-medium">
+            <Link 
+              href="/contact" 
+              className={pathname === '/contact' 
+                ? "text-primary-600 font-bold" 
+                : "text-charcoal-600 hover:text-primary-600 font-medium"}
+            >
               Contact
             </Link>
           </nav>
