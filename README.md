@@ -353,3 +353,16 @@ Proprietary - All rights reserved. This is a personal learning project.
 - GitHub: [@MystSugar](https://github.com/MystSugar)
 
 ---
+
+## 🦜 Special Thanks to the QA Team
+
+This project wouldn't exist without the constant supervision and "helpful" feedback from:
+
+- **Totoro** 🤍 - Head of Quality Assurance (Cockatiel Division). Expert at finding bugs by screaming at 4PM.
+- **Jojo** 💚 - Senior Code Reviewer. Named after a certain bizarre adventure. Provides feedback exclusively in chirps and aggressive keyboard inspections.
+- **Roro (Rose)** 🩷 - Chief Motivational Officer. Specializes in moral support and head bobs.
+- **Pudding (Pood)** 💛 - Visiting Consultant (Kakariki Advisory Board). Offers expert judgment on all architectural decisions, mostly while giving speeches.
+
+*All commits are birb-approved. Most compile errors are definitely their fault.* 🐦✨
+
+---
