@@ -171,8 +171,6 @@ pet-realm/
 │   ├── types/              # TypeScript types
 │   └── middleware.ts       # Next.js middleware
 ├── CHANGELOG.md            # Version history
-├── CURRENT-FEATURES.md     # Implemented features
-├── FUTURE-FEATURES.md      # Planned features
 ├── package.json            # Dependencies
 └── README.md              # This file
 ```
@@ -319,46 +317,7 @@ pnpm prisma migrate reset
 
 ---
 
-## 🐛 Known Issues & Limitations
-
-- Tax calculation defaults to 0% (8% GST system pending implementation)
-- No payment gateway integration (manual receipt verification only)
-- Users can only be Customer OR Seller, not both (mode switching planned for v0.5.0)
-- No product or shop reviews/ratings (planned for v0.4.0)
-- Customers cannot cancel orders (planned for v0.5.0)
-- Single delivery address per order (multiple addresses planned for v0.3.0)
-- No search autocomplete suggestions (planned for v0.2.0)
-- No social login options (Google/Facebook planned for v0.2.0)
-- JWT sessions cannot be instantly revoked (considering database sessions in v0.5.0)
-
 See [CHANGELOG.md](CHANGELOG.md) for version history and [GitHub Issues](https://github.com/MystSugar/pet-realm/issues) for planned features.
-
----
-
-## 🗺️ Roadmap
-
-### v1.0.0 - Enhanced Core (Q1 2025)
-- ✨ Search autocomplete
-- 🔐 Social login (Google, Facebook)
-- 📍 Multiple delivery addresses
-- 📧 Email notifications
-- 💰 GST tax system (8%)
-- ⭐ Product & shop reviews
-
-### v1.1.0 - User Experience (Q2 2025)
-- 🔄 Customer/Seller mode switching
-- 💲 Price range filters
-- ❌ Order cancellation
-- 🔒 Database session strategy
-
-### v2.0.0 - Platform Expansion (Q3 2025)
-- 👑 Admin dashboard
-- ✅ Shop verification
-- 🐾 Pet profile management
-- 🏥 Veterinary services
-- 💬 Community features
-
-See [FUTURE-FEATURES.md](FUTURE-FEATURES.md) for complete roadmap.
 
 ---
 
@@ -394,30 +353,3 @@ Proprietary - All rights reserved. This is a personal learning project.
 - GitHub: [@MystSugar](https://github.com/MystSugar)
 
 ---
-
-## 🙏 Acknowledgments
-
-## 🗺️ Roadmap
-
-### v1.0.0 - Enhanced Core (Q1 2025)
-- ✨ Search autocomplete
-- 🔐 Social login (Google, Facebook)
-- 📍 Multiple delivery addresses
-- 📧 Email notifications
-- 💰 GST tax system (8%)
-- ⭐ Product & shop reviews
-
-### v1.1.0 - User Experience (Q2 2025)
-- 🔄 Customer/Seller mode switching
-- 💲 Price range filters
-- ❌ Order cancellation
-- 🔒 Database session strategy
-
-### v2.0.0 - Platform Expansion (Q3 2025)
-- 👑 Admin dashboard
-- ✅ Shop verification
-- 🐾 Pet profile management
-- 🏥 Veterinary services
-- 💬 Community features
-
-See [GitHub Projects](https://github.com/MystSugar/pet-realm/projects) for detailed issue tracking and planning.
