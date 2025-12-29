@@ -261,7 +261,9 @@ export default function EditProductForm({ productId }: EditProductFormProps) {
   };
 
   if (status === "loading" || isLoading) {
+    <div className="container mx-auto px-4 py-8 max-w-6xl min-h-[calc(100vh-200px)]">
     return <LoadingState message="Loading product..." />;
+    </div>
   }
 
   return (

@@ -7,27 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
-
-### Planned for v0.2.0
-- Search dropdown with autocomplete suggestions
-- Social login (Google, Facebook)
-
-### Planned for v0.3.0
-- Multiple delivery addresses with address book
-- Order email notifications
-
-### Planned for v0.4.0
-- Tax system (8% Maldives GST)
-- Product and shop reviews
-
-### Planned for v0.5.0
-- Customer/Seller mode switching
-- Order cancellation
-- Price range filters
-
----
-
 ## [0.1.0] - 2025-12-10
 
 ### 🎉 Initial Development Release
@@ -220,7 +199,6 @@ Initial database schema with core models
 
 ## Known Limitations
 
-- Tax calculation defaults to 0% (8% Maldives GST planned for v0.4.0)
 - No payment gateway integration (manual receipt verification via upload only)
 - Users can only be Customer OR Seller, not both (mode switching planned for v0.5.0)
 - No product or shop reviews/ratings (planned for v0.4.0)
@@ -260,36 +238,6 @@ Initial database schema with core models
 
 Detailed feature planning and issue tracking available on [GitHub Projects](https://github.com/MystSugar/pet-realm/projects).
 
-### v0.2.0 - Search & Authentication
-- Search autocomplete and suggestions
-- Social login (Google, Facebook)
-
-### v0.3.0 - Delivery & Notifications
-- Multiple delivery addresses
-- Email notifications for order updates
-
-### v0.4.0 - Tax & Reviews
-- GST tax system (8% for pet products)
-- Product and shop reviews
-
-### v0.5.0 - Mode Switching & Cancellations
-- Customer/Seller mode switching
-- Order cancellation by customers
-- Price range filters
-- Database sessions (optional)
-
-### v1.0.0 - First Stable Release
-- Production-ready polish
-- Performance optimization
-- Public launch
-
-### v2.0.0 - Platform Expansion
-- Admin dashboard and moderation
-- Shop verification
-- Pet profiles
-- Veterinary services
-- Community features
-
 ---
 
 ## Contributing
@@ -301,18 +249,6 @@ This is a personal learning project focused on understanding GitHub workflows, v
 ## License
 
 Proprietary - All rights reserved
-
----
-
-## Acknowledgments
-
-Built as a learning project to understand:
-- Modern web development with Next.js
-- Database design and migrations
-- Authentication and authorization
-- E-commerce platform architecture
-- GitHub project management and versioning
-- Professional software development workflows
 
 ---
 
